@@ -16,7 +16,7 @@ Reducer<HomeState> buildReducer() {
 HomeState _onAction(HomeState state, Action action) {
   final HomeState newState = state.clone();
   newState.loadState = LoadState.State_Success;
-
+  newState.wjPersonList =state.wjPersonList;
   return newState;
 }
 

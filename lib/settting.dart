@@ -7,14 +7,14 @@ import 'generated/l10n.dart';
 import 'model/locale_model.dart';
 import 'model/theme_model.dart';
 
-class Root extends StatefulWidget {
-  Root({Key key}) : super(key: key);
+class Setting extends StatefulWidget {
+  Setting({Key key}) : super(key: key);
 
   @override
-  _RootState createState() => _RootState();
+  _Setting createState() => _Setting();
 }
 
-class _RootState extends State<Root> {
+class _Setting extends State<Setting> {
   @override
   void initState() {
     super.initState();

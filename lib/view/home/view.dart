@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weijie/config/zhyn_colors.dart';
 import 'package:weijie/generated/l10n.dart';
 import 'package:weijie/view/loadData/page.dart';
 import 'package:weijie/widgets/load_state.dart';
 import 'package:flutter/material.dart';
+import 'package:weijie/widgets/progressview.dart';
 
-import '../../root.dart';
+import '../../settting.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -18,69 +21,93 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
         title: Text(S.of(viewService.context).home),
       ),
 
-      body: LoadStateLayout(
-        state: state.loadState,
-        //无数据时操作
-        emptyRetry: (){
+      body:  GestureDetector(
+            child: CustomScrollView(
+                slivers:<Widget>[
+                  SliverSafeArea(sliver: SliverPadding(
+                      padding: EdgeInsets.all(1.0),
+                      sliver:
+                      SliverGrid(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 1.0,
+                          crossAxisSpacing:0.1,
+                          childAspectRatio: 0.55,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index){
+                            final bean = state.wjPersonList[index];
+                            return _item(bean,dispatch,state);
+                          },
+                          childCount: state.wjPersonList.length,
 
-        },
-        //错误时操作
-        errorRetry: (){
+                        ),
+                      )
+                  ),
+                  ),
 
-        },
-        //视图成功后返回
-        successWidget: GestureDetector(
-            child: _body(state,dispatch,viewService)
+                ]
+            )
         ),
-      )
   );
 }
 
-
-Widget _body(HomeState state, Dispatch dispatch, ViewService viewService){
-  return SingleChildScrollView(
-    child: Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          _sheZhi(state,dispatch,viewService),
-          SizedBox(height: 20),
-          _data(state,dispatch,viewService),
-        ],
-      ),
+Widget _item(dynamic bean,Dispatch dispatch,HomeState state){
+  return Container(
+    padding: EdgeInsets.only(
+      left: ScreenUtil.getInstance().setWidth(20),
+      right: ScreenUtil.getInstance().setWidth(20),
+    ),
+    child: Column(
+      children: <Widget>[
+        Container(
+          child: new Container(
+              width: ScreenUtil.getInstance().setWidth(350.0),
+              height: ScreenUtil.getInstance().setWidth(350.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(150),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: bean['headUrl'],
+                  placeholder: (context, url) => new ProgressView(),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                ),
+              )
+          ),
+        ),
+        Container(
+          child: Text(bean['personContent'],style: TextStyle(fontWeight: FontWeight.bold),),
+        ),
+        Container(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  child: Text(bean['userName'],style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Text(bean['area']),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Icon(Icons.phone,color: Colors.red,),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: Icon(Icons.flash_on,color: Colors.blue,),
+                ),
+              ),
+            ],
+          )
+        ),
+      ],
     ),
   );
 }
 
-Widget _data(HomeState state, Dispatch dispatch, ViewService viewService){
-  return RaisedButton(
-    onPressed: (){
-      Navigator.of(viewService.context).push(MaterialPageRoute(builder: (context) {
-        return LoadDataPage().buildPage(null);
-      }));
-    },
-    shape: StadiumBorder(side: BorderSide.none),
-    color: ZhynColor.appColor[40],
-    child: Text(
-      "数据加载动画",
-      style: TextStyle(color: Colors.white,fontSize: 15),
-    ),
-  );
-}
 
 
-Widget _sheZhi(HomeState state, Dispatch dispatch, ViewService viewService){
-  return RaisedButton(
-    onPressed: (){
-      Navigator.of(viewService.context).push(MaterialPageRoute(builder: (context) {
-        return Root();
-      }));
-    },
-    shape: StadiumBorder(side: BorderSide.none),
-    color: ZhynColor.appColor[40],
-    child: Text(
-      "设置",
-      style: TextStyle(color: Colors.white,fontSize: 15),
-    ),
-  );
-}

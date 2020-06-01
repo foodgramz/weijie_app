@@ -9,7 +9,7 @@ import 'package:weijie/view/home/page.dart';
 import 'package:weijie/view/register/page.dart';
 import 'package:flutter/cupertino.dart' hide Action;
 import 'package:flutter/material.dart' hide Action;
-import '../../root.dart';
+import '../../settting.dart';
 import 'action.dart';
 import 'state.dart';
 
@@ -25,10 +25,10 @@ Effect<LoginState> buildEffect() {
 
 void _login(Action action, Context<LoginState> ctx) {
   ctx.dispatch(LoginActionCreator.changeLoading());
-//    final FormData formData = FormData.fromMap(<String, dynamic>{
-//    'email': ctx.state.email,
-//    'password': ctx.state.password
-//  });
+    final FormData formData = FormData.fromMap(<String, dynamic>{
+    'email': ctx.state.email,
+    'password': ctx.state.password
+  });
 //  Services.asyncRequest(
 //      ctx,
 //          () => UserRespository.login(formData: formData),
