@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:weijie/root.dart';
 import 'package:weijie/view/login/page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _InitAppState extends State<InitApp>{
     //PX屏幕适配
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
     return Container(
-      child: LoginPage().buildPage(null),
+      child: Root(),
     );
   }
 

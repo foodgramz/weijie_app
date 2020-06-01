@@ -18,7 +18,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
       appBar: new AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text(S.of(viewService.context).home),
+        title: Text("微洁到家"),
       ),
 
       body:  GestureDetector(
