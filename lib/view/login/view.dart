@@ -9,6 +9,7 @@ import 'action.dart';
 import 'state.dart';
 
 Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
+
   return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
@@ -50,6 +51,7 @@ Widget _body(LoginState state, Dispatch dispatch,ViewService viewService){
 }
 
 Widget _title(LoginState state,Dispatch dispatch,ViewService viewService){
+  GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
   return Column(
     children: <Widget>[
       Column(
@@ -115,7 +117,7 @@ Widget _title(LoginState state,Dispatch dispatch,ViewService viewService){
               top: ScreenUtil.getInstance().setWidth(50)
             ),
             child: FormBuilder(
-              key: state.formKey,
+              key: formKey,
               initialValue: {
                 'date': DateTime.now(),
                 'accept_terms': false,
@@ -181,9 +183,9 @@ Widget _title(LoginState state,Dispatch dispatch,ViewService viewService){
                   // padding: const EdgeInsets.fromLTRB(
                   //     20.0, 15.0, 20.0, 15.0),
                   onPressed: () async {
-                    state.formKey.currentState.save();
-                    if (state.formKey.currentState.validate()) {
-                      final Map<String, String> input = state.formKey
+                    formKey.currentState.save();
+                    if (formKey.currentState.validate()) {
+                      final Map<String, String> input = formKey
                           .currentState.value
                           .map((dynamic key, dynamic value) =>
                           MapEntry<String, String>(

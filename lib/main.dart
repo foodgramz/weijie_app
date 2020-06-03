@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'common/locator.dart';
 import 'config/storage_manager.dart';
 import 'generated/l10n.dart';
 import 'model/locale_model.dart';
@@ -20,7 +21,7 @@ void main() async {
     DeviceOrientation.portraitDown
   ]);
   await StorageManager.init();
-  runApp(MyApp());
+  setupLocator().then((dynamic e) => runApp(MyApp()));
 
   // Android状态栏透明 splash为白色,所以调整状态栏文字为黑色
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

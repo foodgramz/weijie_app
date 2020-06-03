@@ -7,8 +7,9 @@ import 'state.dart';
 Reducer<HomeState> buildReducer() {
   return asReducer(
     <Object, Reducer<HomeState>>{
-      HomeAction.action: _onAction,
+//      HomeAction.action: _onAction,
       HomeAction.changeState:_changeState,
+      HomeAction.success:_success,
     },
   );
 }
@@ -24,5 +25,11 @@ HomeState _onAction(HomeState state, Action action) {
 HomeState _changeState(HomeState state, Action action) {
   final HomeState newState = state.clone();
   newState.loadState = state.loadState;
+  return newState;
+}
+
+HomeState _success(HomeState state, Action action) {
+  final HomeState newState = state.clone();
+  newState.wjPersonList = action.payload['list'];
   return newState;
 }

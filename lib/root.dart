@@ -18,6 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weijie/config/zhyn_colors.dart';
 import 'package:weijie/view/home/page.dart';
+import 'package:weijie/view/test1/page.dart';
 
 import 'main.dart';
 
@@ -75,9 +76,9 @@ class _RootState extends State<Root>{
             index: widget.currentIndex,
             children: [
               HomePage().buildPage(null),
-              HomePage().buildPage(null),
-              HomePage().buildPage(null),
-              HomePage().buildPage(null),
+              TestPage().buildPage(null),
+              TestPage().buildPage(null),
+              TestPage().buildPage(null),
             ],
           ),
           bottomNavigationBar: _bottomNavigationBar(),

@@ -68,7 +68,7 @@ Widget _item(dynamic bean,Dispatch dispatch,HomeState state){
                 borderRadius: BorderRadius.circular(150),
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
-                  imageUrl: bean['headUrl'],
+                  imageUrl: bean['imageUrl']==null?'https://yifangwu.oss-cn-hangzhou.aliyuncs.com/common/441ff0ae2543bc809b6e6001730f3f2c.jpg':bean['imageUrl'],
                   placeholder: (context, url) => new ProgressView(),
                   errorWidget: (context, url, error) => new Icon(Icons.error),
                 ),
@@ -76,19 +76,19 @@ Widget _item(dynamic bean,Dispatch dispatch,HomeState state){
           ),
         ),
         Container(
-          child: Text(bean['personContent'],style: TextStyle(fontWeight: FontWeight.bold),),
+          child: Text(bean['description'],style: TextStyle(fontWeight: FontWeight.bold),),
         ),
         Container(
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Container(
-                  child: Text(bean['userName'],style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(bean['nickName'],style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
               ),
               Expanded(
                 child: Container(
-                  child: Text(bean['area']),
+                  child: Text(bean['district']),
                 ),
               ),
               Expanded(

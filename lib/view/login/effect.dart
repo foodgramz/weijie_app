@@ -29,27 +29,23 @@ void _login(Action action, Context<LoginState> ctx) {
     'email': ctx.state.email,
     'password': ctx.state.password
   });
-//  Services.asyncRequest(
-//      ctx,
-//          () => UserRespository.login(formData: formData),
-//      LoginActionCreator.request(),
-//          (json) => LoginActionCreator.success(json),
-//          (errorInfo) => LoginActionCreator.failure(errorInfo));
+  Services.asyncRequest(
+      ctx,
+          () => UserRespository.login(formData: formData),
+      LoginActionCreator.request(),
+          (json) => LoginActionCreator.success(json),
+          (errorInfo) => LoginActionCreator.failure(errorInfo));
 
-
-  //这里是请求后台数据，成功后跳转页面，这里我就模拟登录了
-  delay(2000);
-  Navigator.of(ctx.context).pushAndRemoveUntil(
-      new MaterialPageRoute(builder: (context) => HomePage().buildPage(null)
-      ), (route) => route == null);
+//  Navigator.of(ctx.context).pushAndRemoveUntil(
+//      new MaterialPageRoute(builder: (context) => HomePage().buildPage(null)
+//      ), (route) => route == null);
 
 
 }
 
 void _success(Action action, Context<LoginState> ctx) {
-  DataUtil.saveLoginInfo(action.payload['user']);
+  DataUtil.saveLoginInfo(action.payload['userInfo']);
   DataUtil.saveToken(action.payload['token']);
-  ctx.state.formKey.currentState.dispose();
   ctx.dispatch(LoginActionCreator.changeLoading());
   Navigator.of(ctx.context).pushAndRemoveUntil(
       new MaterialPageRoute(builder: (context) => HomePage().buildPage(null)
