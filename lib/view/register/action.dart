@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum RegisterAction { action,regist,request,success,failure,loadData,querySuccess }
+enum RegisterAction { action,regist,request,success,failure,loadData,querySuccess,showCity,showCitySuccess }
 
 class RegisterActionCreator {
   static Action onAction() {
@@ -28,5 +28,13 @@ class RegisterActionCreator {
 
   static Action querySuccess(dynamic json) {
     return Action(RegisterAction.querySuccess,payload: json);
+  }
+
+  static Action showCity(){
+    return Action(RegisterAction.showCity);
+  }
+
+  static Action showCitySuccess(){
+    return Action(RegisterAction.showCitySuccess);
   }
 }

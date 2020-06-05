@@ -1,5 +1,7 @@
+import 'package:city_pickers/city_pickers.dart';
 import 'package:dio/dio.dart';
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weijie/services/api/services.dart';
 import 'package:weijie/services/request/user_respository.dart';
 import 'package:flutter/material.dart' hide Action;
@@ -11,7 +13,26 @@ Effect<RegisterState> buildEffect() {
     RegisterAction.regist: _regist,
     RegisterAction.success:_success,
     RegisterAction.failure:_failure,
+    RegisterAction.showCity: _showCity,
   });
+}
+
+Future<void> _showCity(Action action, Context<RegisterState> ctx) async {
+  Result result = await CityPickers.showCityPicker(
+    cancelWidget: Text(
+      '取消',
+      style: TextStyle(fontSize: ScreenUtil().setSp(26),color: Color(0xff999999)),
+    ),
+    confirmWidget: Text(
+      '确定',
+      style: TextStyle(fontSize: ScreenUtil().setSp(26),color: Color(0xfffe1314)),
+    ),
+    context: ctx.context,
+  );
+  if(result!=null){
+    ctx.state.address=result.provinceName+result.cityName+result.areaName;
+    ctx.dispatch(RegisterActionCreator.showCitySuccess());
+  }
 }
 
 

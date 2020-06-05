@@ -45,6 +45,7 @@ dependencies:
   #  #toast
   fluttertoast: ^3.1.0
   get_it: ^3.1.0
+  city_pickers: ^0.1.18
 
 dev_dependencies:
   flutter_test:
