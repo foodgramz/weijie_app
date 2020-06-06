@@ -21,6 +21,7 @@ import 'package:weijie/view/home/page.dart';
 import 'package:weijie/view/test1/page.dart';
 
 import 'main.dart';
+import 'view/login/page.dart';
 
 class Root extends StatefulWidget {
   String account;
@@ -76,7 +77,7 @@ class _RootState extends State<Root>{
             index: widget.currentIndex,
             children: [
               HomePage().buildPage(null),
-              TestPage().buildPage(null),
+              LoginPage().buildPage(null),
               TestPage().buildPage(null),
               TestPage().buildPage(null),
             ],
